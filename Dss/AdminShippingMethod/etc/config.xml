@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Digit Software Solutions.
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the EULA
+* that is bundled with this package in the file LICENSE.txt.
+*
+* @category  Dss
+* @package   Dss_AdminShippingMethod
+* @author    Extension Team
+* @copyright Copyright (c) 2024 Digit Software Solutions. ( https://digitsoftsol.com )
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <carriers>
+            <adminshippingmethod>
+                <active>1</active>
+                <sallowspecific>0</sallowspecific>
+                <model>Dss\AdminShippingMethod\Model\ShippingMethod</model>
+                <name>Free</name>
+                <title>Admin Shipping Method</title>
+                <pre_select>0</pre_select>
+                <createinvoice>0</createinvoice>
+                <createshipment>0</createshipment>
+                <specificerrmsg>
+                    This shipping method is not available. To use this shipping method, please contact us.
+                </specificerrmsg>
+            </adminshippingmethod>
+        </carriers>
+    </default>
+</config>
