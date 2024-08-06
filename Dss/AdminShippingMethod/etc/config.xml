@@ -28,7 +28,7 @@
                 <createinvoice>0</createinvoice>
                 <createshipment>0</createshipment>
                 <specificerrmsg>
-                    This shipping method is not available. To use this shipping method, please contact us.
+                This shipping method is not available. To use this shipping method, please contact us.
                 </specificerrmsg>
             </adminshippingmethod>
         </carriers>

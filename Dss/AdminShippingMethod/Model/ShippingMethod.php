@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * Digit Software Solutions.
  *
@@ -12,7 +15,6 @@
  * @author    Extension Team
  * @copyright Copyright (c) 2024 Digit Software Solutions. ( https://digitsoftsol.com )
  */
-declare(strict_types=1);
 
 namespace Dss\AdminShippingMethod\Model;
 
@@ -190,7 +192,8 @@ class ShippingMethod extends AbstractCarrier implements CarrierInterface
         $availableCountries = $this->getAvaiable();
         if ($availableCountries && in_array($request->getDestCountryId(), $availableCountries)) {
             return $this;
-        } elseif ($showMethod
+        } elseif (
+            $showMethod
             && (!$availableCountries || $availableCountries
                 && !in_array($request->getDestCountryId(), $availableCountries))
         ) {
