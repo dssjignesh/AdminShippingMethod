@@ -22,6 +22,7 @@ use Dss\AdminShippingMethod\Helper\Data;
 use Magento\Sales\Model\Service\InvoiceService;
 use Magento\Framework\Message\ManagerInterface;
 use Magento\Framework\DB\TransactionFactory;
+use Magento\Sales\Model\Convert\Order as ConvertOrder;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\App\ProductMetadataInterface;
 use Magento\Framework\Event\Observer;
@@ -35,16 +36,11 @@ use Magento\Shipping\Model\ShipmentNotifier;
 class AutoCreateInvoiceAndShipment implements ObserverInterface
 {
     /**
-     * @var \Magento\Sales\Model\Convert\Order
-     */
-    protected $convertOrder;
-
-    /**
      * AutoCreateInvoice constructor.
      * @param InvoiceService $invoiceService
      * @param ManagerInterface $messageManager
      * @param TransactionFactory $transaction
-     * @param \Magento\Sales\Model\Convert\Order $convertOrder
+     * @param ConvertOrder $convertOrder
      * @param ShipmentNotifier $shipmentNotifier
      * @param Data $helper
      * @param ProductMetadataInterface $productMetadata
@@ -55,21 +51,20 @@ class AutoCreateInvoiceAndShipment implements ObserverInterface
         protected InvoiceService $invoiceService,
         protected ManagerInterface $messageManager,
         protected TransactionFactory $transaction,
-        \Magento\Sales\Model\Convert\Order $convertOrder,
+        protected ConvertOrder $convertOrder,
         protected ShipmentNotifier $shipmentNotifier,
         protected Data $helper,
         protected ProductMetadataInterface $productMetadata,
         private SearchCriteriaBuilder $searchCriteriaBuilder,
         private OrderItemRepositoryInterface $itemRepository
     ) {
-        $this->convertOrder = $convertOrder;
     }
 
     /**
      * Handle the event observer
      *
      * @param Observer $observer
-     * @throws \Magento\Framework\Exception\LocalizedException
+     * @throws LocalizedException
      */
     public function execute(Observer $observer)
     {
@@ -82,7 +77,7 @@ class AutoCreateInvoiceAndShipment implements ObserverInterface
             if ($this->helper->getCreatShipment($storeId)) {
                 // to check order can ship or not
                 if (!$order->canShip()) {
-                    throw new \Magento\Framework\Exception\LocalizedException(
+                    throw new LocalizedException(
                         __('You cant create the Shipment of this order.')
                     );
                 }
@@ -113,7 +108,7 @@ class AutoCreateInvoiceAndShipment implements ObserverInterface
                     //Show message create shipment
                     $this->messageManager->addSuccessMessage(__("Automatically generated Shipment."));
                 } catch (\Exception $e) {
-                    throw new \Magento\Framework\Exception\LocalizedException(
+                    throw new LocalizedException(
                         __($e->getMessage())
                     );
                 }
