@@ -103,7 +103,6 @@ class ShippingMethod extends AbstractCarrier implements CarrierInterface
         if (!$this->getConfigFlag('active') || !$this->isAdmin()) {
             return false;
         }
-
         /** @var Result $result */
         $result = $this->rateResultFactory->create();
         /** @var Method $method */
