@@ -134,8 +134,6 @@ class AutoCreateInvoiceAndShipment implements ObserverInterface
                 $invoice->getOrder()->setIsInProcess(true);
                 $transaction = $this->transaction->create()->addObject($invoice)->addObject($invoice->getOrder());
                 $transaction->save();
-
-                //Show message create invoice
                 $this->messageManager->addSuccessMessage(__("Automatically generated Invoice."));
             } catch (\Exception $e) {
                 $order->addStatusHistoryComment('Exception message: ' . $e->getMessage(), false);
